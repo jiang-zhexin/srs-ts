@@ -4,14 +4,28 @@
 
 ## Installation
 
+## from jsr
+
 ```bash
 # Node.js
-npm add @zhexin/srs
-yarn add @zhexin/srs
-pnpm add @zhexin/srs
+npx jsr add @zhexin/srs
+yarn add jsr:@zhexin/srs
+pnpm add jsr:@zhexin/srs
 # Deno
 deno add jsr:@zhexin/srs
 # Bun
+bunx jsr add @zhexin/srs
+```
+
+## from npm
+
+write `@jsr:registry=https://npm.jsr.io` into `.npmrc`, then
+
+```bash
+npm add @zhexin/srs
+yarn add @zhexin/srs
+pnpm add @zhexin/srs
+
 bun add @zhexin/srs
 ```
 
