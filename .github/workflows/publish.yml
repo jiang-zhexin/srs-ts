@@ -1,0 +1,40 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: latest
+          cache: true
+
+      - name: Publish package
+        run: deno publish --set-version ${{ github.event.release.tag_name }}
+
+      - run: deno pack --output srs.tgz --set-version ${{ github.event.release.tag_name }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: latest
+          registry-url: "https://registry.npmjs.org"
+
+      - run: tar -xzf srs.tgz
+      - working-directory: package
+        run: |
+          npm pkg set repository.url="git+https://github.com/jiang-zhexin/srs-ts.git"
+          npm publish --tag latest

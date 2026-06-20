@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: latest
+          cache: true
+
+      - name: Type check
+        run: deno check **/*.ts
+
+      - name: Check formatting
+        run: deno fmt --check **/*.ts
+
+      - name: Run lint
+        run: deno lint
