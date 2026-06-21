@@ -75,6 +75,14 @@ enum RuleItemType {
   Final = 0xFF,
 }
 
+export type {
+  DefaultRule,
+  LogicalRule,
+  Rule,
+  RuleSet,
+  Version,
+} from "./types.ts";
+
 /**
  * decode srs
  *
